@@ -52,7 +52,7 @@ public class DbUtils{
 		try {
 			QueryRunner qr = new QueryRunner();
 			String sql = "select "+SqlUtils.getColumn(t.getClass(),true) + " from "+SqlUtils.getTable(t.getClass(),true)+" "+SqlUtils.getWhere(t,true);
-			List<T> list= qr.query(con,sql, new BeanListHandler(t.getClass()),SqlUtils.getParams(t));
+			List<T> list= (List<T>) qr.query(con,sql, new BeanListHandler(t.getClass()),SqlUtils.getParams(t));
 			return list;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -73,7 +73,7 @@ public class DbUtils{
 			Integer currentIndex = pageInfo.getPageSize() * (pageInfo.getPageNum() - 1);
 			String limit = " limit "+currentIndex + " , "+ currentIndex + pageInfo.getPageSize();
 			String sql = "select "+SqlUtils.getColumn(t.getClass(),true) + " from "+SqlUtils.getTable(t.getClass(),true)+" "+SqlUtils.getWhere(t,true) + limit;
-			List<T> list= qr.query(con,sql, new BeanListHandler(t.getClass()),SqlUtils.getParams(t));
+			List<T> list= (List<T>) qr.query(con,sql, new BeanListHandler(t.getClass()),SqlUtils.getParams(t));
 			return list;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -89,7 +89,7 @@ public class DbUtils{
 	public static <T> List<T> queryList(String sql,Class<T> clazzs) {
 		try {
 			QueryRunner qr = new QueryRunner();
-			List<T> list= qr.query(con,sql, new BeanListHandler(clazzs));
+			List<T> list= (List<T>) qr.query(con,sql, new BeanListHandler(clazzs));
 			return list;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -144,7 +144,7 @@ public class DbUtils{
 		 try {
 			 QueryRunner qr = new QueryRunner();
 			 String sql = "insert into " + SqlUtils.getTable(t.getClass(),false) + " ("+SqlUtils.getNotNullColumn(t,false)+") values("+SqlUtils.getValues(t)+")";
-			 BigInteger id = qr.insert(con, sql, new ScalarHandler(1));
+			 BigInteger id = (BigInteger) qr.insert(con, sql, new ScalarHandler(1));
 			 return id;
 		} catch (SQLException e) {
 			e.printStackTrace();
