@@ -162,7 +162,9 @@ public class SqlUtils {
 			if(fields != null && fields.length > 0) {
 				for(int i = 0,size = fields.length;i<size;i++) {
 					fields[i].setAccessible(true);
-					if(fields[i].get(object) != null && fields[i].get(object) instanceof Object) {
+					if(fields[i].get(object) != null && fields[i].get(object) instanceof Boolean) {
+						objects.add(Boolean.parseBoolean(fields[i].get(object)+"")?1:0);
+					}else  if(fields[i].get(object) != null && fields[i].get(object) instanceof Object) {
 						objects.add(fields[i].get(object));
 					}
 				}
@@ -188,6 +190,8 @@ public class SqlUtils {
 					if(fields[i].get(object) != null && !"id".equals(fields[i].getName())) {
 						if(fields[i].get(object) instanceof String) {
 							objects.add("'"+fields[i].get(object)+"'");
+						}else if(fields[i].get(object) instanceof Boolean) {
+							objects.add(Boolean.parseBoolean(fields[i].get(object)+"")?1:0);
 						}else if(fields[i].get(object) instanceof Object) {
 							objects.add(fields[i].get(object));
 						}
@@ -217,6 +221,8 @@ public class SqlUtils {
 					if(fields[i].get(object) != null && fields[i].get(object) instanceof Object) {
 						if(fields[i].get(object) instanceof String) {
 							valueBuffer.append("'"+fields[i].get(object)+"'");
+						}else if(fields[i].get(object) instanceof Boolean) {
+							valueBuffer.append(Boolean.parseBoolean(fields[i].get(object)+"")?1:0);
 						}else if(fields[i].get(object) instanceof Date) {
 							valueBuffer.append("'"+sdf.format(fields[i].get(object))+"'");
 						}else {
