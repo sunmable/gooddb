@@ -1,4 +1,4 @@
-package wang.igooo.db;
+package wang.igood.db;
 
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import wang.igooo.db.core.PageInfo;
+import wang.igood.db.core.PageInfo;
 
 /***
  * 链接通道的初始化

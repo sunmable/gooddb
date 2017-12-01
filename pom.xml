@@ -3,22 +3,29 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>wang.igood</groupId>
 	<artifactId>db</artifactId>
-	<packaging>jar</packaging> 
-	<version>0.0.1</version>
+	<packaging>jar</packaging>
+	<version>0.0.2</version>
 	<name>db Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+
+	<properties>
+		<jdk.version>1.7</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<github.global.server>github</github.global.server>
+	</properties>
+
 	<dependencies>
 		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
-		    <version>4.12</version>
-		    <scope>test</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 		<!-- DBUtils -->
 		<dependency>
-		    <groupId>commons-dbutils</groupId>
-		    <artifactId>commons-dbutils</artifactId>
-		    <version>1.7</version>
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+			<version>1.7</version>
 		</dependency>
 		<!-- Mysql Connector -->
 		<dependency>
@@ -27,7 +34,7 @@
 			<version>5.1.38</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
@@ -50,16 +57,6 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
@@ -69,6 +66,25 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<compilerId>eclipse</compilerId>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-compiler-eclipse</artifactId>
+						<version>2.2</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

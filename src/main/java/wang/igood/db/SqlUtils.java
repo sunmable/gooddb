@@ -1,4 +1,4 @@
-package wang.igooo.db;
+package wang.igood.db;
 
 import java.lang.reflect.Field;
 import java.math.BigInteger;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import wang.igooo.db.core.Column;
-import wang.igooo.db.core.Table;
+import wang.igood.db.core.Column;
+import wang.igood.db.core.Table;
 
 /***
  * <a>Sql工具类</a>
@@ -156,7 +156,7 @@ public class SqlUtils {
 	 * */
 	public static Object[] getParams(Object object) {
 		try {
-			List<Object> objects = new ArrayList<>();
+			List<Object> objects = new ArrayList<Object>();
 			Class<?> clazzs = object.getClass();
 			Field[] fields = clazzs.getDeclaredFields();
 			if(fields != null && fields.length > 0) {
@@ -181,7 +181,7 @@ public class SqlUtils {
 	 * */
 	public static Object[] getParamsWidthOutId(Object object) {
 		try {
-			List<Object> objects = new ArrayList<>();
+			List<Object> objects = new ArrayList<Object>();
 			Class<?> clazzs = object.getClass();
 			Field[] fields = clazzs.getDeclaredFields();
 			if(fields != null && fields.length > 0) {

@@ -1,4 +1,4 @@
-package wang.igooo.db.core;
+package wang.igood.db.core;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
