@@ -197,7 +197,7 @@ public class DbUtils{
 	public static  <T> boolean update(T t) {
 		 try {
 			 QueryRunner qr = new QueryRunner();
-			 String columns = SqlUtils.getWhere(t, false).replaceAll("where 1=1  and", "").replace("id=?  and", "") ;
+			 String columns = SqlUtils.getWhere(t, false).replaceAll("where 1=1  and", "").replace("id=?  and", "").replaceAll("and", ",") ;
 			 String sql = "update "+SqlUtils.getTable(t.getClass(), false) +" set " + columns  +" where id = "+SqlUtils.getId(t);
 			 System.out.println(sql);
 			 int result = qr.update(con,sql,SqlUtils.getParamsWidthOutId(t));
