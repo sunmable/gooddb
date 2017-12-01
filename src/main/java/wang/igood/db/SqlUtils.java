@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mysql.jdbc.StringUtils;
+
 import wang.igood.db.core.Column;
 import wang.igood.db.core.Table;
 
@@ -80,13 +82,14 @@ public class SqlUtils {
 					fields[i].setAccessible(true);
 					Column column = fields[i].getAnnotation(Column.class);
 					if(column != null && fields[i].get(t) != null) {
+						if(!StringUtils.isNullOrEmpty(columns.toString()))
+							columns.append(" , ");
 						if(tagAble) {
 							columns.append(tableName+"."+column.value()+" as " + fields[i].getName() + " ");
 						}else {
 							columns.append(column.value());
 						}
-						if(i<(size-1))
-							columns.append(" , ");
+						
 					}
 				}
 			}
@@ -220,11 +223,11 @@ public class SqlUtils {
 					fields[i].setAccessible(true);
 					if(fields[i].get(object) != null && fields[i].get(object) instanceof Object) {
 						if(fields[i].get(object) instanceof String) {
-							valueBuffer.append(fields[i].get(object));
+							valueBuffer.append("'"+fields[i].get(object)+"'");
 						}else if(fields[i].get(object) instanceof Boolean) {
 							valueBuffer.append(Boolean.parseBoolean(fields[i].get(object)+"")?1:0);
 						}else if(fields[i].get(object) instanceof Date) {
-							valueBuffer.append(sdf.format(fields[i].get(object)));
+							valueBuffer.append("'"+sdf.format(fields[i].get(object))+"'");
 						}else {
 							valueBuffer.append(fields[i].get(object));
 						}

@@ -11,6 +11,8 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import com.mysql.jdbc.StringUtils;
+
 import wang.igood.db.core.PageInfo;
 
 /***
@@ -143,9 +145,16 @@ public class DbUtils{
 	public static <T> BigInteger insert(T t) {
 		 try {
 			 QueryRunner qr = new QueryRunner();
-			 String sql = "insert into " + SqlUtils.getTable(t.getClass(),false) + " ("+SqlUtils.getNotNullColumn(t,false)+") values("+SqlUtils.getValues(t)+")";
-			 BigInteger id = (BigInteger) qr.insert(con, sql, new ScalarHandler(1));
-			 return id;
+			 String column = SqlUtils.getNotNullColumn(t,false);
+			 StringBuffer values = new StringBuffer();
+			 for(int i = 0,length = column.split(",").length;i<length;i++) {
+				 if(!StringUtils.isNullOrEmpty(values.toString()))
+					 values.append(" , ");
+				 values.append(" ? ");
+			 }
+			 String sql = "insert into " + SqlUtils.getTable(t.getClass(),false) + " ("+column+") values("+values+")";
+			 Object idObj = qr.insert(con,sql, new ScalarHandler(1) , SqlUtils.getParams(t));
+			 return BigInteger.valueOf(Long.parseLong(idObj.toString()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
