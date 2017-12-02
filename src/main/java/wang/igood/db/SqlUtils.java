@@ -142,7 +142,7 @@ public class SqlUtils {
 							if(tagAble){
 								whereSb.append(" and " + tableName + "."+column.value()+ (value.toString().contains("%")?" like ":"=")+"? ");
 							}else {
-								whereSb.append(" and "+column.value()+column.value()+ (value.toString().contains("%")?" like ":" = ")+"? ");
+								whereSb.append(" and "+column.value()+ (value.toString().contains("%")?" like ":" = ")+"? ");
 							}
 						}
 							
