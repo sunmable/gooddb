@@ -137,12 +137,15 @@ public class SqlUtils {
 					fields[i].setAccessible(true);
 					Column column = fields[i].getAnnotation(Column.class);
 					if(column != null && fields[i].get(object) instanceof Object) {
-						if(fields[i].get(object) != null)
+						Object value = fields[i].get(object);
+						if(value != null) {
 							if(tagAble){
-								whereSb.append(" and " + tableName + "."+column.value()+"=? ");
+								whereSb.append(" and " + tableName + "."+column.value()+ (value.toString().contains("%")?" like ":"=")+"? ");
 							}else {
-								whereSb.append(" and "+column.value()+"=? ");
+								whereSb.append(" and "+column.value()+column.value()+ (value.toString().contains("%")?" like ":" = ")+"? ");
 							}
+						}
+							
 					}
 				}
 			}

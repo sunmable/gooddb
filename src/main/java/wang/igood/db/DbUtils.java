@@ -54,6 +54,7 @@ public class DbUtils{
 		try {
 			QueryRunner qr = new QueryRunner();
 			String sql = "select "+SqlUtils.getColumn(t.getClass(),true) + " from "+SqlUtils.getTable(t.getClass(),true)+" "+SqlUtils.getWhere(t,true);
+			System.out.println(sql);
 			List<T> list= (List<T>) qr.query(con,sql, new BeanListHandler(t.getClass()),SqlUtils.getParams(t));
 			return list;
 		}catch(Exception e) {
