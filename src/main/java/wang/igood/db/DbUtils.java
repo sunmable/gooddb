@@ -97,6 +97,27 @@ public class DbUtils{
 	}
 	
 	/***
+	 * <a>查询数据列表</a>
+	 * @param <T>
+	 * @param String sql语句
+	 * @return Class<T> 数据对象Class
+	 * */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> Integer count(T t) {
+		try {
+			Connection con=getCon();
+			QueryRunner qr = new QueryRunner();
+			String sql = "select count(*) from "+SqlUtils.getTable(t.getClass(),true)+" "+SqlUtils.getWhere(t,true);
+			int count = ((Long)qr.query(sql, new ScalarHandler(1))).intValue();
+			con.close();
+			return count;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/***
 	 * <a>查询数据对象</a>
 	 * @param T 查询对象
 	 * @return T 结果对象
