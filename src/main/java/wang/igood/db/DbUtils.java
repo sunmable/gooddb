@@ -108,7 +108,7 @@ public class DbUtils{
 			Connection con=getCon();
 			QueryRunner qr = new QueryRunner();
 			String sql = "select count(*) from "+SqlUtils.getTable(t.getClass(),true)+" "+SqlUtils.getWhere(t,true);
-			int count = ((Long)qr.query(con,sql, new ScalarHandler(1))).intValue();
+			int count = ((Long)qr.query(con,sql, new ScalarHandler(1),SqlUtils.getParams(t))).intValue();
 			con.close();
 			return count;
 		}catch(Exception e) {
